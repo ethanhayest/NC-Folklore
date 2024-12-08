@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptid and Paranormal Sightings</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 90vh;
+            margin: 0 auto;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .legend {
+            background: white;
+            line-height: 1.5em;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+        .red { background: red; }
+        .blue { background: blue; }
+        .text-box {
+            position: fixed; /* Changed to fixed to stay in place */
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            width: 250px;
+            font-size: 16px;
+            text-align: left;
+            z-index: 1000; /* Ensures it stays above map layers */
+        }
+        .text-box h3 {
+            margin: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Locations of Folklore in North Carolina</h1>
+    <div id="map"></div>
+    <div class="text-box">
+        <h3>Discover the Folklore of NC!</h3>
+        Embark on an unforgettable adventure into the heart of North Carolina's mysteries! From the eerie Devil's Tramping Ground to the legendary Beast of Bladenboro, explore these captivating tales that blend history, mystery, and thrills. Whether you're a fan of the supernatural or a seeker of mythical creatures, these locations promise intrigue and adventure. Dare to visit and create your own story!
+        <p>For more eerie and mysterious tales of North Carolina, check out <a href="https://www.onlyinyourstate.com/experiences/north-carolina/urban-legends-nc-1" target="_blank">Urban Legends in North Carolina</a>.</p>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map', {
+            center: [35.662824595587075, -80.47897077352191], // Shifted the longitude further left (toward the western part of NC),
+            zoom: 7,
+            minZoom: 6,
+            maxZoom: 15,
+            maxBounds: [
+                [33.5, -85],
+                [37, -76.5]
+            ],
+            maxBoundsViscosity: 1.0
+        });
+
+        // Add a basemap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a legend to the map
+        const legend = L.control({ position: 'bottomright' });
+        legend.onAdd = function() {
+            const div = L.DomUtil.create('div', 'legend');
+            div.innerHTML = `
+                <div class="legend-item"><div class="legend-color red"></div>Cryptid Sighting</div>
+                <div class="legend-item"><div class="legend-color blue"></div>Paranormal Location</div>
+            `;
+            return div;
+        };
+        legend.addTo(map);
+    </script>
+</body>
+</html>
+
+    <h1>Locations of Folklore in North Carolina</h1>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map', {
+            center: [35.662824595587075, -80.47897077352191], // Shifted the longitude further left (toward the western part of NC)
+            zoom: 7,
+            minZoom: 7,
+            maxZoom: 15,
+            maxBounds: [
+                [33.5, -85], // Southwest boundary
+                [37, -76.5]  // Northeast boundary
+            ]
+        });
+
+        // Add a basemap (CartoDB Positron with labels for cities and parks)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: 'Map tiles by <a href="https://carto.com/">Carto</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.'
+        }).addTo(map);
+    </script>
+    <script>
+        // Add a marker for the Moon-Eyed People
+        const moonEyeMarker = L.marker([35.090194577710264, -84.03541841918064], {
+            icon: L.divIcon({
+                className: 'red-marker',
+                html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>Moon-Eyed People</b><br> 
+            According to Cherokee legend, the Moon-Eyed People were a mysterious, pale-skinned tribe who lived in the Appalachian region before the arrival of the Cherokee. 
+            They were said to be nocturnal, with sensitive eyes, and built stone fortifications in the area.<br>
+            <a href="https://allthatsinteresting.com/moon-eyed-people" target="_blank">Learn more about the Moon-Eyed People</a>
+        `)
+        .addTo(map);
+    </script>
+    <script>
+        // Add a marker for The Lost Colony
+        const lostColonyMarker = L.marker([35.932165566204624, -75.7055457992989], {
+            icon: L.divIcon({
+                className: 'blue-marker',
+                html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>The Lost Colony</b><br>
+            The Lost Colony refers to the mysterious disappearance of the Roanoke Colony in the late 16th century. 
+            The colonists vanished without a trace, leaving only the word "Croatoan" carved into a post. It's one of America's greatest unsolved mysteries.<br>
+            <a href="https://www.nps.gov/fora/learn/education/search-for-the-lost-colony.htm" target="_blank">Learn more about The Lost Colony</a>
+        `)
+        .addTo(map);
+    </script>
+    <script>
+        // Add a marker for Cape Fear Mermaids
+        const capeFearMermaidsMarker = L.marker([35.59691208634135, -79.05285488448604], {
+            icon: L.divIcon({
+                className: 'red-marker',
+                html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>Cape Fear Mermaids</b><br>
+            Legend has it that during the Revolutionary War, sailors off the coast of Cape Fear claimed to have seen mermaids swimming in the waters. These sightings have persisted as part of the region's rich folklore, linking mermaids to the area's mysterious and often dangerous waters.<br>
+            <a href="https://www.wral.com/story/mermaid-point-legend-of-mermaids-in-the-cape-fear-dates-back-to-the-revolutionary-war/20175311/" target="_blank">Learn more about Cape Fear Mermaids</a>
+        `)
+        .addTo(map);
+    </script>
+    <script>
+        // Add a marker for Lake Norman Monster
+        const lakeNormanMonsterMarker = L.marker([35.48686913211856, -80.93812747162231], {
+            icon: L.divIcon({
+                className: 'red-marker',
+                html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>Lake Norman Monster</b><br>
+            The Lake Norman Monster, also known as "Normie," is said to inhabit Lake Norman in North Carolina. Descriptions of this cryptid vary, but many claim it resembles a large sea serpent. Numerous sightings have occurred over the years, contributing to its status as a local legend.<br>
+            <a href="https://lakenormanmonster.com/monster-sightings/" target="_blank">Learn more about the Lake Norman Monster</a>
+        `)
+        .addTo(map);
+    </script>
+    <script>
+        // Add a marker for USS North Carolina
+        const ussNorthCarolinaMarker = L.marker([34.23643610568419, -77.9546602515724], {
+            icon: L.divIcon({
+                className: 'blue-marker',
+                html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>USS North Carolina</b><br>
+            The USS North Carolina, docked in Wilmington, is a historic battleship that saw action during World War II. Today, it is a museum, and some claim it is haunted by the spirits of sailors who died aboard. Paranormal experiences, such as unexplained noises and ghostly apparitions, are commonly reported.<br>
+            <a href="https://www.hauntedrooms.com/north-carolina/ghost-hunts/battleship-north-carolina-wilmington" target="_blank">Learn more about the USS North Carolina's haunting</a>
+        `)
+        .addTo(map);
+    </script>
+     <script>
+        // Add a marker for The Biltmore Estate
+        const biltmoreEstateMarker = L.marker([35.552633804360276, -82.56387526838431], {
+            icon: L.divIcon({
+                className: 'blue-marker',
+                html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>The Biltmore Estate</b><br>
+            The Biltmore Estate in Asheville is known for its beauty and grandeur, but it also has a darker, eerie reputation. The mansion is said to be haunted by several spirits, including that of George Washington Vanderbilt II. Visitors often report strange noises and ghostly apparitions.<br>
+            <a href="https://www.onlyinyourstate.com/experiences/north-carolina/haunted-biltmore-in-asheville-nc" target="_blank">Learn more about The Biltmore Estate's haunting</a>
+        `)
+        .addTo(map);
+    </script>
+     <script>
+        // Add a marker for Lydia's Bridge
+        const lydiasBridgeMarker = L.marker([35.99726825507688, -79.92545073682905], {
+            icon: L.divIcon({
+                className: 'blue-marker',
+                html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+            })
+        })
+        .bindPopup(`
+            <b>Lydia's Bridge</b><br>
+            Lydia's Bridge is a well-known haunted location in North Carolina, linked to a tragic tale of a young woman named Lydia. According to the story, Lydia was involved in a car accident and now haunts the area, often appearing to drivers in need of a ride. Many claim to have had eerie encounters at the bridge.<br>
+            <a href="https://www.ncexploring.com/lydia-s-bridge" target="_blank">Learn more about Lydia's Bridge</a>
+        `)
+        .addTo(map);
+    </script> 
+        <script>
+            // Add a marker for The Boojum
+            const boojumMarker = L.marker([35.410006130451755, -82.85630450878841], {
+                icon: L.divIcon({
+                    className: 'red-marker',
+                    html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+                })
+            })
+            .bindPopup(`
+                <b>The Boojum</b><br>
+                The Boojum is a legendary creature said to haunt the mountains of North Carolina. According to the tale, the Boojum is a mysterious creature that has been spotted by hikers and locals alike. Its eerie presence is accompanied by strange sounds, and sightings have left many wondering if the Boojum truly exists.<br>
+                <a href="https://visithaywood.com/blog/the-legend-of-the-boojum/" target="_blank">Learn more about The Boojum</a>
+            `)
+            .addTo(map);
+        </script>  
+        <script>
+    // Add a marker for The Devil's Tramping Ground
+    const devilsTrampingGroundMarker = L.marker([35.590614139762515, -79.49213827498805], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>The Devil's Tramping Ground</b><br>
+        The Devil’s Tramping Ground is a mysterious clearing in the woods where the Devil is said to pace in circles. The legend suggests that nothing grows in the center of the clearing, and strange noises and supernatural phenomena have been reported by visitors. It’s a popular spot for thrill-seekers looking for a taste of the eerie.<br>
+        <a href="https://www.onlyinyourstate.com/north-carolina/devils-tramping-ground-nc/" target="_blank">Learn more about The Devil's Tramping Ground</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for The Beast of Bladenboro
+    const beastOfBladenboroMarker = L.marker([34.544741706534815, -78.78710656926366], {
+        icon: L.divIcon({
+            className: 'red-marker',
+            html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>The Beast of Bladenboro</b><br>
+        The Beast of Bladenboro is a legendary creature said to have terrorized the town of Bladenboro, North Carolina in the 1950s. Descriptions of the creature vary, but it is often described as a large, cat-like animal that preys on livestock and leaves strange, unexplained wounds on its victims.<br>
+        <a href="https://www.ncpedia.org/animal/beast-bladenboro" target="_blank">Learn more about The Beast of Bladenboro</a>
+    `)
+    .addTo(map);
+</script>     
+<script>
+    // Add a marker for The Wampus Cat
+    const wampusCatMarker = L.marker([35.388160608871715, -77.99282241398635], {
+        icon: L.divIcon({
+            className: 'red-marker',
+            html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>The Wampus Cat</b><br>
+        The Wampus Cat is a legendary creature from North Carolina folklore, often described as a cat-like beast that roams the forests at night. According to the legend, the Wampus Cat is a spirit of vengeance, believed to have been once a woman cursed for spying on a sacred ritual. The creature is known for its eerie, glowing eyes and its haunting presence.<br>
+        <a href="https://northcarolinaghosts.com/mountains/the-wampus-cat/" target="_blank">Learn more about The Wampus Cat</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Brown Mountain Lights
+    const brownMountainLightsMarker = L.marker([35.914919167221576, -81.74722442850114], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Brown Mountain Lights</b><br>
+        The Brown Mountain Lights are a mysterious phenomenon seen in the Brown Mountain area of North Carolina. These glowing orbs of light appear on the mountainside at night, and their origin remains unexplained. The lights have been a source of fascination for decades, with many theories ranging from paranormal activity to natural gas emissions.<br>
+        <a href="https://blueridgemountainstravelguide.com/brown-mountain-lights-of-morganton-nc/" target="_blank">Learn more about the Brown Mountain Lights</a>
+    `)
+    .addTo(map);
+</script>     
+<script>
+    // Add a marker for Ocracoke Island
+    const ocracokeIslandMarker = L.marker([35.11633496869038, -75.98466221299942], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Ocracoke Island</b><br>
+        Ocracoke Island is renowned not only for its picturesque beaches, but also for its ghostly lore. Known as a hotspot for paranormal activity, visitors often report sightings of spirits tied to the island’s history, including those of former pirates and soldiers.<br>
+        <a href="https://www.onlyinyourstate.com/experiences/north-carolina/ghosts-of-ocracoke-nc" target="_blank">Learn more about the ghostly tales of Ocracoke Island</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Bentonville Battlefield
+    const bentonvilleBattlefieldMarker = L.marker([35.30171268123018, -78.32256801690407], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Bentonville Battlefield</b><br>
+        Bentonville Battlefield is a historic site, but it's also known for its ghostly activity. The site was the location of the last major Confederate offensive during the Civil War, and many visitors report strange occurrences, from cold spots to unexplained sounds.<br>
+        <a href="https://www.hauntedplaces.org/item/bentonville-battlefield/" target="_blank">Learn more about Bentonville Battlefield's haunted history</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Cape Hatteras Lighthouse
+    const capeHatterasLighthouseMarker = L.marker([35.254861218111834, -75.52186513898619], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Cape Hatteras Lighthouse</b><br>
+        Cape Hatteras Lighthouse is not only an iconic site but also one with a haunted reputation. Many visitors report seeing mysterious lights or feeling eerie sensations near the lighthouse, and it's often cited as one of the most haunted places in North Carolina.<br>
+        <a href="https://www.onlyinyourstate.com/experiences/north-carolina/haunted-cape-hatteras-light-nc" target="_blank">Learn more about the haunted Cape Hatteras Lighthouse</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for The Siren of the French Broad
+    const sirenOfTheFrenchBroadMarker = L.marker([35.93298505887889, -82.88722982429665], {
+        icon: L.divIcon({
+            className: 'red-marker',
+            html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>The Siren of the French Broad</b><br>
+        The Siren of the French Broad is a legend associated with the French Broad River. The tale speaks of a haunting, mystical siren that lures travelers into the river's waters. The story is popular in Western North Carolina and is often cited as a chilling reminder of the area's folklore.<br>
+        <a href="https://northcarolinaghosts.com/mountains/the-siren-of-the-french-broad/" target="_blank">Learn more about The Siren of the French Broad</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Duke Mansion
+    const dukeMansionMarker = L.marker([35.20143930421203, -80.82761002158696], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Duke Mansion</b><br>
+        The Duke Mansion is a historic and haunted site in Charlotte, North Carolina. Once home to the Duke family, it is now a bed-and-breakfast and event venue. Guests and staff alike have reported eerie encounters, including strange noises and ghostly apparitions. The mansion's rich history adds to its chilling reputation.<br>
+        <a href="https://www.hauntedrooms.com/north-carolina/haunted-places/haunted-hotels/the-duke-mansion" target="_blank">Learn more about Duke Mansion's haunted history</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Fort Fisher
+    const fortFisherMarker = L.marker([33.9642662115405, -77.9236048715939], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Fort Fisher</b><br>
+        Fort Fisher, located in Kure Beach, North Carolina, was once a strategic site during the Civil War and is now the site of paranormal activity. Visitors have reported eerie sounds, ghostly apparitions, and strange happenings around the area. Its tragic history adds to the intrigue of the haunting tales surrounding this historic fort.<br>
+        <a href="https://www.coastalguide.com/ghost-of-fort-fisher.html" target="_blank">Learn more about the Ghost of Fort Fisher</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Mordecai House
+    const mordecaiHouseMarker = L.marker([35.79263245196195, -78.63359341175975], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Mordecai House</b><br>
+        The Mordecai House, located in Raleigh, North Carolina, is known for its haunting history. The mansion is said to be haunted by the ghost of a young girl who tragically passed away on the property. Visitors have reported strange noises, sightings of apparitions, and an eerie feeling of being watched.<br>
+        <a href="https://www.wral.com/haunted-raleigh-mordecai-house-ghost/20501317/" target="_blank">Learn more about the Mordecai House Ghost</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Guilford Courthouse
+    const guilfordCourthouseMarker = L.marker([36.13393011005723, -79.84324407694342], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Guilford Courthouse</b><br>
+        Guilford Courthouse, the site of a pivotal Revolutionary War battle, is steeped in history and legends of the paranormal. Visitors have reported hearing the echoes of battle, ghostly figures on the grounds, and an eerie sense of being transported back in time.<br>
+        <a href="https://travelsandtomes.com/2021/10/31/things-that-go-bump-the-ghosts-of-guilford-courthouse/" target="_blank">Learn more about the Ghosts of Guilford Courthouse</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Tryon Palace
+    const tryonPalaceMarker = L.marker([35.105651860762684, -77.0445272099474], {
+        icon: L.divIcon({
+            className: 'blue-marker',
+            html: '<div style="background:blue;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Tryon Palace</b><br>
+        Tryon Palace, the first permanent capitol of North Carolina, is known for its beautiful gardens and ghostly legends. Visitors often report seeing the spirit of a servant girl, thought to have died in a fire, wandering the grounds.<br>
+        <a href="https://www.mirror.co.uk/news/world-news/ghostly-figure-servant-girl-who-10843436" target="_blank">Learn more about the hauntings at Tryon Palace</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Tarboro Banshee
+    const tarboroBansheeMarker = L.marker([35.901711872649656, -77.56333484988863], {
+        icon: L.divIcon({
+            className: 'red-marker',
+            html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Tarboro Banshee</b><br>
+        The Tarboro Banshee is a chilling legend tied to the Tar River in North Carolina. Known for its wailing cries, the banshee has been said to foretell death and disaster, leaving an eerie presence in the area.<br>
+        <a href="https://factschology.com/mmm-podcast-articles/banshee-tar-river-north-carolina" target="_blank">Learn more about the Tarboro Banshee</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Santer
+    const santerMarker = L.marker([35.78566484755986, -80.88777051179379], {
+        icon: L.divIcon({
+            className: 'red-marker',
+            html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Santer</b><br>
+        The Santer is a mysterious creature said to wander the streets of Statesville, North Carolina. Locals report eerie sightings of a large black cat and other strange occurrences associated with this enigmatic presence, making it a topic of urban legend and folklore.<br>
+        <a href="https://www.downtownstatesville.com/2024/04/24/4338/mysterious-santer-wanders-streets-of-statesville" target="_blank">Learn more about the Santer</a>
+    `)
+    .addTo(map);
+</script>
+<script>
+    // Add a marker for Tsul Kalu
+    const tsulKaluMarker = L.marker([35.29487462886093, -82.9159646845297], {
+        icon: L.divIcon({
+            className: 'red-marker',
+            html: '<div style="background:red;width:12px;height:12px;border-radius:50%;"></div>'
+        })
+    })
+    .bindPopup(`
+        <b>Tsul Kalu</b><br>
+        Tsul Kalu, known as the Slant-Eyed Giant, is a figure from Cherokee legend. Revered and feared, he is said to inhabit the forested regions of North Carolina, embodying a connection between humanity and the natural world.<br>
+        <a href="https://www.worldhistory.org/article/2560/tsulkalu-the-slant-eyed-giant/" target="_blank">Learn more about Tsul Kalu</a>
+    `)
+    .addTo(map);
+</script>
+</head>
+<body>
+    <div id="map"></div>
+    <footer class="author-footer">
+        <p>Created by Ethan Tilley</p>
+    </footer>
+</body>
+</html>
+
