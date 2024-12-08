@@ -38,16 +38,6 @@ This interactive map was created in conjunction with an online article by *Only 
 - **FontAwesome**: For designing custom map icons.
 - **OpenStreetMap**: For the base map layer.
 
-## Link to Live Project
-
-You can view the live web mapping application here:  
-[Project on GitHub Pages](https://[yourgithubusername].github.io/[repository-name])
-
-## Repository
-
-Access the source code and project files on GitHub:  
-[GitHub Repository](https://github.com/[yourgithubusername]/[repository-name])
-
 ## Conclusion
 
 This project offers a captivating way to explore North Carolina’s folklore. With interactive features and a sleek design, it allows users to experience the state's legends in a unique, educational, and engaging manner.
